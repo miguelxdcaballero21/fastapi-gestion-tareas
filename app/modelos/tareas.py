@@ -1,10 +1,30 @@
 from datetime import date
-from pydantic import BaseModel
+from typing import TYPE_CHECKING
 
-from app.modelos.usuarios import UsuarioRespuesta
+from sqlmodel import SQLModel, Field, Relationship
+
+if TYPE_CHECKING:
+    from app.modelos.usuarios import Usuario
+    from app.modelos.actividades import Actividad
 
 
-class Tarea(BaseModel):
+class Tarea(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+
+    nombre: str
+    descripcion: str
+    estado: str
+    avance: int
+    fecha_inicio: date
+    fecha_final: date
+
+    usuario_id: int = Field(foreign_key="usuario.id")
+
+    usuario: "Usuario" = Relationship(back_populates="tareas")
+    actividades: list["Actividad"] = Relationship(back_populates="tarea")
+
+
+class TareaCrear(SQLModel):
     nombre: str
     descripcion: str
     estado: str
@@ -14,11 +34,7 @@ class Tarea(BaseModel):
     usuario_id: int
 
 
-class TareaRespuesta(Tarea):
-    id: int
-
-
-class TareaLista(BaseModel):
+class TareaRespuesta(SQLModel):
     id: int
     nombre: str
     descripcion: str
@@ -26,6 +42,4 @@ class TareaLista(BaseModel):
     avance: int
     fecha_inicio: date
     fecha_final: date
-
-    usuario: UsuarioRespuesta
-    actividades: list
+    usuario_id: int

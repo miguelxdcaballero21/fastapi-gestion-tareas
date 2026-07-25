@@ -13,3 +13,6 @@ class Actividad(BaseModel):
 
 class ActividadRespuesta(Actividad):
     id: int
+    
+class ActividadActualizar(BaseModel):
+    completada: bool

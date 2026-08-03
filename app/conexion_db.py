@@ -1,9 +1,15 @@
-from sqlmodel import SQLModel, Session, create_engine
+import os
+
 from typing import Annotated
 
+from dotenv import load_dotenv
 from fastapi import Depends
 
-URL_BASE_DATOS = "sqlite:///gestion_tareas.db"
+from sqlmodel import SQLModel, Session, create_engine
+
+load_dotenv()
+
+URL_BASE_DATOS = os.getenv("DATABASE_URL")
 
 motor_bd = create_engine(
     URL_BASE_DATOS,

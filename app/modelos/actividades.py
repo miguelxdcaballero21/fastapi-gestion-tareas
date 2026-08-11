@@ -1,4 +1,5 @@
 from datetime import date
+
 from pydantic import BaseModel
 
 
@@ -11,8 +12,13 @@ class Actividad(BaseModel):
     tarea_id: int
 
 
+class ActividadActualizar(BaseModel):
+    nombre: str
+    descripcion: str
+    estado: str
+    fecha: date
+    completada: bool
+
+
 class ActividadRespuesta(Actividad):
     id: int
-    
-class ActividadActualizar(BaseModel):
-    completada: bool

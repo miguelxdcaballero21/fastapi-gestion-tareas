@@ -14,6 +14,15 @@ class Tarea(BaseModel):
     usuario_id: int
 
 
+class TareaActualizar(BaseModel):
+    nombre: str
+    descripcion: str
+    estado: str
+    avance: int
+    fecha_inicio: date
+    fecha_final: date
+
+
 class TareaRespuesta(Tarea):
     id: int
 

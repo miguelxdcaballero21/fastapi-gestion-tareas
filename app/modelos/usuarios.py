@@ -6,6 +6,10 @@ class Usuario(BaseModel):
     correo: EmailStr
 
 
+class UsuarioActualizar(BaseModel):
+    nombre: str
+    correo: EmailStr
+
+
 class UsuarioRespuesta(Usuario):
     id: int
-    
